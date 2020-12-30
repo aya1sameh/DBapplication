@@ -46,12 +46,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(105, 23);
+            this.button1.Location = new System.Drawing.Point(178, 24);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(418, 23);
             this.button1.TabIndex = 1;
@@ -62,7 +64,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(436, 92);
+            this.label8.Location = new System.Drawing.Point(614, 88);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(64, 13);
             this.label8.TabIndex = 19;
@@ -71,7 +73,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(284, 127);
+            this.dataGridView1.Location = new System.Drawing.Point(467, 131);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(361, 286);
             this.dataGridView1.TabIndex = 18;
@@ -181,7 +183,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(124, 409);
+            this.button2.Location = new System.Drawing.Point(275, 179);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(135, 23);
             this.button2.TabIndex = 32;
@@ -206,11 +208,33 @@
             this.label7.TabIndex = 33;
             this.label7.Text = "Away Club Score";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(275, 129);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(135, 23);
+            this.button3.TabIndex = 35;
+            this.button3.Text = "Insert new Fixture ";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(275, 231);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(135, 23);
+            this.button4.TabIndex = 36;
+            this.button4.Text = "Delete Fixture by ID";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // AdminF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 444);
+            this.ClientSize = new System.Drawing.Size(840, 444);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button2);
@@ -259,5 +283,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }

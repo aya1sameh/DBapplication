@@ -73,7 +73,7 @@ namespace DBapplication
 
         private void button2_Click(object sender, EventArgs e)//Update certain player info given his id
         {
-            if (textBox7.Text=="" || textBox6.Text == "" || textBox5.Text == "" || textBox4.Text == "" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "") {
+            if (textBox10.Text == ""  || textBox9.Text == ""  || textBox8.Text == ""  || textBox7.Text=="" || textBox6.Text == "" || textBox5.Text == "" || textBox4.Text == "" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "") {
                 MessageBox.Show("Please fill all the boxes");
             }
             else {
@@ -87,6 +87,47 @@ namespace DBapplication
         {
             //Query should show all the players info in datagrid
             //refresh data grid to show the data
+        }
+
+        private void textBox10_TextChanged(object sender, EventArgs e)//Price
+        {
+
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)//Club ID
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)//Position
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)// Insert new Player
+        {
+            if (textBox10.Text == "" || textBox9.Text == "" || textBox8.Text == "" || textBox7.Text == "" || textBox6.Text == "" || textBox5.Text == "" || textBox4.Text == "" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
+            {
+                MessageBox.Show("Please fill all the boxes");
+            }
+            else
+            {
+                //Query should Insert a new Player
+                //refresh data grid to show the new player
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)// delete a player button
+        {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Please enter player ID");
+            }
+            else
+            {
+                //Query should Delete the player given his ID in textbox1
+                //refresh data grid to show the new player
+            }
         }
     }
 }

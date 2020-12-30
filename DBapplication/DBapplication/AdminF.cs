@@ -89,5 +89,31 @@ namespace DBapplication
                 //refresh data grid to show the new updates
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)// insert new Fixture
+        {
+            if (textBox7.Text == "" || textBox6.Text == "" || textBox5.Text == "" || textBox4.Text == "" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
+            {
+                MessageBox.Show("Please fill all the boxes");
+            }
+            else
+            {
+                //Query should insert a new Fixture  
+                //refresh data grid to show the new updates
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)//delete button
+        {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Please enter fixture ID");
+            }
+            else
+            {
+                //Query should delete a Fixture given its id in textbox1 
+                //refresh data grid to show the new updates
+            }
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace DBapplication
 
         private void button2_Click(object sender, EventArgs e)// update club info by id
         {
-            if (textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
+            if (textBox4.Text=="" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
             {
                 MessageBox.Show("Please fill all the boxes");
             }
@@ -67,6 +67,37 @@ namespace DBapplication
         {
             //Query should show all the Clubs info in datagrid
             //refresh data grid to show the data
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)// Position
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)//insert new club button
+        {
+            if (textBox4.Text == "" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
+            {
+                MessageBox.Show("Please fill all the boxes");
+            }
+            else
+            {
+                //Query should insert a new Club 
+                //refresh data grid to show the new updates
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)//delete a club button
+        {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Please enter Club ID");
+            }
+            else
+            {
+                //Query should delete the Club given the club ID in textBox1
+                //refresh data grid to show the new updates
+            }
         }
     }
 }
