@@ -17,8 +17,6 @@ namespace DBapplication
             InitializeComponent();
             MyParent = p;
             MyParent.Hide();
-
-
         }
 
         private void LoginButton_Click(object sender, EventArgs e)

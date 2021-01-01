@@ -27,7 +27,8 @@ namespace DBapplication
 
         private void button1_Click(object sender, EventArgs e) // Login as a user button
         {
-            
+            UserLogin a = new UserLogin(this);
+            a.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)//Login as an Admin button
