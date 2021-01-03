@@ -12,9 +12,11 @@ namespace DBapplication
     public partial class AdminP : Form
     {
         Form MyParent;
+        Controller controllerObj;
         public AdminP(Form p)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             MyParent.Hide();
         }
@@ -78,7 +80,12 @@ namespace DBapplication
             }
             else {
                 //Query should update the player info given the player ID in textBox1
-                //refresh data grid to show the new updates
+                int result = controllerObj.UpdatePlayerInfo(Int32.Parse(textBox1.Text), textBox2.Text, textBox3.Text, Int32.Parse(textBox4.Text), Int32.Parse(textBox5.Text), Int32.Parse(textBox6.Text), Int32.Parse(textBox7.Text));    
+
+                if (result == 0)    //Check on update status                
+                    MessageBox.Show("Failed to Update");                
+                else                
+                    MessageBox.Show("Updated successfully!");                
             }
 
         }
@@ -86,7 +93,10 @@ namespace DBapplication
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) // data grid to show All players Info
         {
             //Query should show all the players info in datagrid
+             DataTable dt = controllerObj.ShowPlayers();
             //refresh data grid to show the data
+            dataGridView1.DataSource = dt;
+            dataGridView1.Refresh();
         }
 
         private void textBox10_TextChanged(object sender, EventArgs e)//Price
@@ -112,8 +122,12 @@ namespace DBapplication
             }
             else
             {
-                //Query should Insert a new Player
-                //refresh data grid to show the new player
+                int result = controllerObj.InsertPlayer(Int32.Parse(textBox1.Text), textBox2.Text, textBox3.Text, char.Parse(textBox8.Text), Int32.Parse(textBox9.Text), Int32.Parse(textBox10.Text), Int32.Parse(textBox6.Text), Int32.Parse(textBox7.Text), Int32.Parse(textBox4.Text), Int32.Parse(textBox5.Text));//Query should Insert a new Player
+
+                if (result == 0)    //Check on Insert status                
+                    MessageBox.Show("Failed to Insert");             
+                else                
+                    MessageBox.Show("Inserted successfully!");                
             }
         }
 
@@ -125,8 +139,12 @@ namespace DBapplication
             }
             else
             {
-                //Query should Delete the player given his ID in textbox1
-                //refresh data grid to show the new player
+                int result = controllerObj.DeletePlayer(Int32.Parse(textBox1.Text));//Query should Delete the player given his ID in textbox1
+
+                if (result == 0)    //Check on Insert status                
+                    MessageBox.Show("Failed to Delete");
+                else
+                    MessageBox.Show("Deleted successfully!");
             }
         }
     }

@@ -14,9 +14,11 @@ namespace DBapplication
     {
         Form MyParent;
         string Role = "";
+        Controller controllerObj;
         public AdminSignUp(Form p)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             MyParent.Hide();
         }
@@ -77,6 +79,12 @@ namespace DBapplication
             else
             {
                 //query should insert new Admin given id,firstname,lastname,Role in global string Role
+                int result = controllerObj.AdminSignUp(Int32.Parse(textBox3.Text), textBox1.Text, textBox2.Text, Role);
+
+                if (result == 0)    //Check on Insert status                
+                    MessageBox.Show("Failed to Sign Up");
+                else
+                    MessageBox.Show("Signed Up successfully!");
             }
 
 

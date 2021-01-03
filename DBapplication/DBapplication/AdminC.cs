@@ -10,13 +10,18 @@ using System.Windows.Forms;
 namespace DBapplication
 {
     public partial class AdminC : Form
-    { Form MyParent;
+    {
+        Form MyParent;
+        Controller controllerObj;
+
         public AdminC(Form p)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             MyParent.Hide();
         }
+
 
         private void AdminC_Load(object sender, EventArgs e)
         {
@@ -51,8 +56,8 @@ namespace DBapplication
         }
 
         private void button2_Click(object sender, EventArgs e)// update club info by id
-        {
-            if (textBox4.Text=="" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
+        {  //textBox4.Text=="" || 
+            if (textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
             {
                 MessageBox.Show("Please fill all the boxes");
             }
@@ -60,6 +65,14 @@ namespace DBapplication
             {
                 //Query should update the Club info given the club ID in textBox1
                 //refresh data grid to show the new updates
+                int r = controllerObj.UpdateClubInfo(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text));
+                if (r != 0)
+                {
+                    MessageBox.Show("club data updated successfully");
+                    DataTable dt = controllerObj.SelectAllClubs();
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.Refresh();
+                }
             }
         }
 
@@ -67,6 +80,9 @@ namespace DBapplication
         {
             //Query should show all the Clubs info in datagrid
             //refresh data grid to show the data
+            DataTable dt = controllerObj.SelectAllClubs();
+            dataGridView1.DataSource = dt;
+            dataGridView1.Refresh();
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)// Position
@@ -75,8 +91,8 @@ namespace DBapplication
         }
 
         private void button3_Click(object sender, EventArgs e)//insert new club button
-        {
-            if (textBox4.Text == "" || textBox3.Text == "" || textBox2.Text == "" || textBox1.Text == "")
+        {   //textBox4.Text == "" || textBox3.Text == "" || 
+            if (textBox2.Text == "" || textBox1.Text == "")
             {
                 MessageBox.Show("Please fill all the boxes");
             }
@@ -84,6 +100,13 @@ namespace DBapplication
             {
                 //Query should insert a new Club 
                 //refresh data grid to show the new updates
+                int r = controllerObj.InsertClub(Int32.Parse(textBox1.Text), textBox2.Text);
+                if (r != 0) MessageBox.Show("Club inserted successfully");
+                DataTable dt = controllerObj.SelectAllClubs();
+                dataGridView1.DataSource = dt;
+                dataGridView1.Refresh();
+
+
             }
         }
 
@@ -97,6 +120,18 @@ namespace DBapplication
             {
                 //Query should delete the Club given the club ID in textBox1
                 //refresh data grid to show the new updates
+                int result = controllerObj.DeleteClub(Int32.Parse(textBox1.Text));
+                if (result == 0)
+                {
+                    MessageBox.Show("No rows are deleted");
+                }
+                else
+                {
+                    MessageBox.Show("The row is deleted successfully!");
+                    DataTable dt = controllerObj.SelectAllClubs();
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.Refresh();
+                }
             }
         }
     }

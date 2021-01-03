@@ -11,10 +11,12 @@ namespace DBapplication
 {
     public partial class AdminLogin : Form
     {
+        Controller controllerObj;
         Form MyParent;
         public AdminLogin(Form p)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             MyParent.Hide();
         }
@@ -27,7 +29,7 @@ namespace DBapplication
             }
             else {
                 /// String Role=query check if id exists and return his Role
-                String Role = "C";///temp for testing
+                String Role = controllerObj.AdminLogin(Int32.Parse(textBox1.Text));
                 if (Role == "P")
                 {
                     AdminP a = new AdminP(this);

@@ -12,9 +12,11 @@ namespace DBapplication
     public partial class UserLogin : Form
     {
         Form MyParent;
+        Controller controllerObj;
         public UserLogin(Form p)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             MyParent.Hide();
         }
@@ -54,7 +56,7 @@ namespace DBapplication
             else
             {
                 //bool Exists= //query that check if this user exists given its data in textBox1, textBox2, textBox3, textBox4 AND RETURNS BOOL TRUE IF USER EXISTS
-                bool Exists = true;//temp.....to be removed
+                bool Exists = controllerObj.UserLogin(Int32.Parse(textBox1.Text),textBox2.Text, textBox3.Text, Int32.Parse(textBox4.Text)) ;//temp.....to be removed
                 if (Exists == true)
                 {
                     UserHome a = new UserHome(this,textBox1.Text);
