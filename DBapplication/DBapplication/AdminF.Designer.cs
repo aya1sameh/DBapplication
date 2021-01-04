@@ -48,6 +48,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +68,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(614, 88);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 13);
+            this.label8.Size = new System.Drawing.Size(64, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "Fixtures Info";
             // 
@@ -92,7 +94,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(26, 339);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(88, 13);
+            this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 30;
             this.label6.Text = "Home Club Score";
             // 
@@ -109,7 +111,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(26, 302);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.Size = new System.Drawing.Size(71, 13);
             this.label5.TabIndex = 28;
             this.label5.Text = "Away Club ID";
             // 
@@ -126,7 +128,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(26, 260);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.Size = new System.Drawing.Size(73, 13);
             this.label4.TabIndex = 26;
             this.label4.Text = "Home Club ID";
             // 
@@ -160,7 +162,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(26, 179);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 22;
             this.label2.Text = "Time";
             // 
@@ -177,7 +179,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(26, 138);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 20;
             this.label1.Text = "Match ID";
             // 
@@ -220,7 +222,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(275, 231);
+            this.button4.Location = new System.Drawing.Point(275, 250);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(135, 23);
             this.button4.TabIndex = 36;
@@ -228,11 +230,33 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(275, 282);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(135, 23);
+            this.button5.TabIndex = 37;
+            this.button5.Text = "Delete All Fixture";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(275, 211);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(135, 23);
+            this.button6.TabIndex = 38;
+            this.button6.Text = "Update Fixture Scores ";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // AdminF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 444);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox7);
@@ -285,5 +309,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }

@@ -164,13 +164,14 @@ namespace DBapplication
         }
 
 
-        //insert new fixtures: Home club score and away club scores are not needed  "NULL-NULL"
+        //insert new fixtures: Home club score and away club scores are not needed  "NULL-NULL" /////make it 0-0 for the user to understand
         //insert new club: we only check on id, club name.
+
         //buttons to add to adminc, adminf:
-        //1-delete all clubs button
-        //2-delete all fixtures button
-        //3-Update fixture scores: we may need only to update the score, so we neead a new button "Update fixture score".
-        //4-Update club points: we may need only to update the points, so we neead a new button "Update club points".
+        //1-delete all clubs button///////////////////////////////////done but to be tested
+        //2-delete all fixtures button///////////////////////////////////done but to be tested
+        //3-Update fixture scores: we may need only to update the score, so we neead a new button "Update fixture score".///////////////////////////////////done but to be tested
+        //4-Update club points: we may need only to update the points, so we neead a new button "Update club points".///////////////////////////////////done but to be tested
         //text box to remove: club rank
     }
 }

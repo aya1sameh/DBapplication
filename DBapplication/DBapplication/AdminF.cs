@@ -147,6 +147,49 @@ namespace DBapplication
             }
         }
 
-      
+        private void button5_Click(object sender, EventArgs e)//delete all fixtures
+        {
+            int result = controllerObj.DeleteAllFixtures();
+            if (result == 0)
+            {
+                MessageBox.Show("No rows are deleted");
+            }
+            else
+            {
+                MessageBox.Show("All fixtures are deleted successfully!");
+                DataTable dt = controllerObj.SelectAllFixtures();
+                dataGridView1.DataSource = dt;
+                dataGridView1.Refresh();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)//update fixture score
+        {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Please enter fixture ID");
+            }
+            else if (textBox6.Text == "" || textBox7.Text == "")
+            {
+                MessageBox.Show("Please enter both clubs scores");
+            }
+            else
+            {
+                //Query should delete a Fixture given its id in textbox1 
+                //refresh data grid to show the new updates
+                int result = controllerObj.UpdateFixtureScore(Int32.Parse(textBox1.Text), Int32.Parse(textBox6.Text), Int32.Parse(textBox7.Text));
+                if (result == 0)
+                {
+                    MessageBox.Show("Fixture is not updated");
+                }
+                else
+                {
+                    MessageBox.Show("Fixture score is updated successfully!");
+                    DataTable dt = controllerObj.SelectAllFixtures();
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.Refresh();
+                }
+            }
+        }
     }
 }

@@ -134,5 +134,50 @@ namespace DBapplication
                 }
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)//delete all clubs
+        {
+            int result = controllerObj.DeleteAllClubs();
+            if (result == 0)
+            {
+                MessageBox.Show("No rows are deleted");
+            }
+            else
+            {
+                MessageBox.Show("All Clubs are deleted successfully!");
+                DataTable dt = controllerObj.SelectAllClubs();
+                dataGridView1.DataSource = dt;
+                dataGridView1.Refresh();
+
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)//update club points only
+        {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Please enter Club ID");
+            }
+            else if (textBox3.Text == "")
+            {
+                MessageBox.Show("Please enter Club new points");
+            }
+            else
+            {
+                int result = controllerObj.UpdateClubPoints(Int16.Parse(textBox1.Text), Int32.Parse(textBox3.Text));
+                if (result == 0)
+                {
+                    MessageBox.Show("Club is not updated");
+                }
+                else
+                {
+                    MessageBox.Show("Club is updated successfully!");
+                    DataTable dt = controllerObj.SelectAllClubs();
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.Refresh();
+
+                }
+            }
+        }
     }
 }

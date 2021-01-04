@@ -74,3 +74,6 @@ J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\De
 J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.csproj.CoreCompileInputs.cache
 J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.exe
 J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.pdb
+C:\Users\Aya\Documents\GitHub\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.NewLeagueCreation.resources
+C:\Users\Aya\Documents\GitHub\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.PickATeam.resources
+C:\Users\Aya\Documents\GitHub\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.SignUp.resources
