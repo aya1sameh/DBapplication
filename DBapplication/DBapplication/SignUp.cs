@@ -10,7 +10,8 @@ using System.Windows.Forms;
 namespace DBapplication
 {
     public partial class SignUp : Form
-    {   Form MyParent;
+    {
+        private Form MyParent;
         public SignUp(Form p)
         {
             InitializeComponent();

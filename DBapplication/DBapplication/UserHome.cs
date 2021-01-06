@@ -11,25 +11,53 @@ namespace DBapplication
 {
     public partial class UserHome : Form
     {
-        int UserID;
-        Form MyParent;
+        private int UserID;
+        private Form MyParent;
+        Controller controllerObj;
         public UserHome(Form p,int id)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             UserID = id;
             MyParent.Hide();
             textBox1.Text = UserID.ToString();
-            //textBox2.Text=//Query get user rank given id in UserID
-            //textBox3.Text =//Query get bank rank given id in UserID
-            //textBox4.Text =//Query get Avg score of all users
-            //textBox5.Text =//Query get user score given id in UserID
-            //textBox6.Text =//Query get Max score of all users
-            //textBox7.Text =//Query get user Team Name given id in UserID
+           controllerObj = new Controller();
+            
+            int rank=0, bank=0, points=0, maxpoints=0, avgpoints=0;
+
+            DataTable dt=controllerObj.GetUserInfo(UserID,ref rank,ref bank, ref points,ref maxpoints,ref avgpoints);
+
+            //DataRow Row= dt.Rows[0];
+            
+            string team_name = dt.Rows[0].Field<string>(0);          // Row.Cells[0].Value.ToString();  //Row.ToString();
+            textBox2.Text =Convert.ToString(rank);         //Query get user rank given id in UserID
+            textBox3.Text =Convert.ToString(bank);          //Query get bank rank given id in UserID
+            textBox4.Text =Convert.ToString(avgpoints);          //Query get Avg score of all users
+            textBox5.Text =Convert.ToString(points);              //Query get user score given id in UserID
+            textBox6.Text = Convert.ToString(maxpoints);        //Query get Max score of all users
+            textBox7.Text = team_name;                          //Query get user Team Name given id in UserID
         }
 
         private void UserHome_Load(object sender, EventArgs e)
         {
+            
+            DataTable dt = controllerObj.SelectAllUserTeam(UserID);
+            dataGridView2.DataSource = dt;
+            dataGridView2.Refresh();
+            DataTable dt2 = controllerObj.SelectAllUserLeagues(UserID);
+            dataGridView1.DataSource = dt2;
+            dataGridView1.Refresh();
+            DataTable dt3 = controllerObj.SelectAllUserChips(UserID);
+            dataGridView5.DataSource = dt3;
+            dataGridView5.Refresh();
+            DataTable dt4 = controllerObj.SelectAllFixtures();
+            dataGridView3.DataSource = dt4;
+            dataGridView3.Refresh();
+            DataTable dt5 = controllerObj.SelectAllHomeClubs();
+            dataGridView4.DataSource = dt5;
+            dataGridView4.Refresh();
+
 
         }
 
@@ -58,18 +86,27 @@ namespace DBapplication
         {
             //query return all user leagues in  dataGridView1
             //refresh datagrid to show the data
+            DataTable dt = controllerObj.SelectAllUserLeagues(UserID);
+            dataGridView1.DataSource = dt;
+            dataGridView1.Refresh();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)//User Team
         {
             //query return user team in  dataGridView2
             //refresh datagrid to show the data
+            DataTable dt = controllerObj.SelectAllUserTeam(UserID);
+            dataGridView2.DataSource = dt;
+            dataGridView2.Refresh();
         }
 
         private void dataGridView5_CellContentClick(object sender, DataGridViewCellEventArgs e)//User chips
         {
             //query return user chips in  dataGridView5
             //refresh datagrid to show the data
+            DataTable dt = controllerObj.SelectAllUserTeam(UserID);
+            dataGridView2.DataSource = dt;
+            dataGridView2.Refresh();
         }
 
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)//All fixtures
@@ -126,16 +163,26 @@ namespace DBapplication
             }
             else
             {
-                //int result=//query update User Team name given UserID
-                //if (result == 0)
-                //{
-                //  MessageBox.Show("name is not updated");
-                //}
-                //else {
-                //  MessageBox.Show("Team name is updated successfully");
-                //}
+                //query update User Team name given UserID
+                int result = controllerObj.UpdateUserTeamName(UserID, textBox7.Text);
+                if (result == 0)
+                {
+                  MessageBox.Show("name is not updated");
+                }
+                else {
+                  MessageBox.Show("Team name is updated successfully");
+                }
 
             }
         }
+
+        private void dataGridView2_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataTable dt = controllerObj.SelectAllUserTeam(UserID);
+            dataGridView2.DataSource = dt;
+            dataGridView2.Refresh();
+        }
+
+        
     }
 }

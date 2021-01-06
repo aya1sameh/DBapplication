@@ -11,8 +11,8 @@ namespace DBapplication
 {
     public partial class AdminC : Form
     {
-        Form MyParent;
-        Controller controllerObj;
+        private Form MyParent;
+        private Controller controllerObj;
 
         public AdminC(Form p)
         {
@@ -65,11 +65,12 @@ namespace DBapplication
             {
                 //Query should update the Club info given the club ID in textBox1
                 //refresh data grid to show the new updates
-                int r = controllerObj.UpdateClubInfo(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text));
-                if (r != 0)
+                int r = controllerObj.UpdateHomeClubInfo(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text));
+                int s = controllerObj.UpdateAwayClubInfo(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text));
+                if (r != 0 && s != 0)
                 {
                     MessageBox.Show("club data updated successfully");
-                    DataTable dt = controllerObj.SelectAllClubs();
+                    DataTable dt = controllerObj.SelectAllHomeClubs();
                     dataGridView1.DataSource = dt;
                     dataGridView1.Refresh();
                 }
@@ -80,7 +81,7 @@ namespace DBapplication
         {
             //Query should show all the Clubs info in datagrid
             //refresh data grid to show the data
-            DataTable dt = controllerObj.SelectAllClubs();
+            DataTable dt = controllerObj.SelectAllHomeClubs();
             dataGridView1.DataSource = dt;
             dataGridView1.Refresh();
         }
@@ -100,9 +101,10 @@ namespace DBapplication
             {
                 //Query should insert a new Club 
                 //refresh data grid to show the new updates
-                int r = controllerObj.InsertClub(Int32.Parse(textBox1.Text), textBox2.Text);
-                if (r != 0) MessageBox.Show("Club inserted successfully");
-                DataTable dt = controllerObj.SelectAllClubs();
+                int r = controllerObj.InsertHomeClub(Int32.Parse(textBox1.Text), textBox2.Text);
+                int s = controllerObj.InsertAwayClub(Int32.Parse(textBox1.Text), textBox2.Text);
+                if (r != 0 && s != 0) MessageBox.Show("Club inserted successfully");
+                DataTable dt = controllerObj.SelectAllHomeClubs();
                 dataGridView1.DataSource = dt;
                 dataGridView1.Refresh();
 
@@ -120,15 +122,16 @@ namespace DBapplication
             {
                 //Query should delete the Club given the club ID in textBox1
                 //refresh data grid to show the new updates
-                int result = controllerObj.DeleteClub(Int32.Parse(textBox1.Text));
-                if (result == 0)
+                int result = controllerObj.DeleteHomeClub(Int32.Parse(textBox1.Text));
+                int result2 = controllerObj.DeleteAwayClub(Int32.Parse(textBox1.Text));
+                if (result == 0 || result2==0)
                 {
                     MessageBox.Show("No rows are deleted");
                 }
                 else
                 {
                     MessageBox.Show("The row is deleted successfully!");
-                    DataTable dt = controllerObj.SelectAllClubs();
+                    DataTable dt = controllerObj.SelectAllHomeClubs();
                     dataGridView1.DataSource = dt;
                     dataGridView1.Refresh();
                 }
@@ -137,15 +140,16 @@ namespace DBapplication
 
         private void button5_Click(object sender, EventArgs e)//delete all clubs
         {
-            int result = controllerObj.DeleteAllClubs();
-            if (result == 0)
+            int result = controllerObj.DeleteAllHomeClubs();
+            int result2 = controllerObj.DeleteAllAwayClubs();
+            if (result == 0 || result2==0 )
             {
                 MessageBox.Show("No rows are deleted");
             }
             else
             {
                 MessageBox.Show("All Clubs are deleted successfully!");
-                DataTable dt = controllerObj.SelectAllClubs();
+                DataTable dt = controllerObj.SelectAllHomeClubs();
                 dataGridView1.DataSource = dt;
                 dataGridView1.Refresh();
 
@@ -164,15 +168,16 @@ namespace DBapplication
             }
             else
             {
-                int result = controllerObj.UpdateClubPoints(Int16.Parse(textBox1.Text), Int32.Parse(textBox3.Text));
-                if (result == 0)
+                int result = controllerObj.UpdateHomeClubPoints(Int16.Parse(textBox1.Text), Int32.Parse(textBox3.Text));
+                int result2 = controllerObj.UpdateAwayClubPoints(Int16.Parse(textBox1.Text), Int32.Parse(textBox3.Text));
+                if (result == 0 || result2==0 )
                 {
                     MessageBox.Show("Club is not updated");
                 }
                 else
                 {
                     MessageBox.Show("Club is updated successfully!");
-                    DataTable dt = controllerObj.SelectAllClubs();
+                    DataTable dt = controllerObj.SelectAllHomeClubs();
                     dataGridView1.DataSource = dt;
                     dataGridView1.Refresh();
 

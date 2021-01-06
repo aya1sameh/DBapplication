@@ -9,13 +9,16 @@ using System.Windows.Forms;
 
 namespace DBapplication
 {
+
     public partial class NewLeagueCreation : Form
     {
-        int UserID;
-        Form MyParent;
+        private int UserID;
+        private Form MyParent;
+        Controller controllerObj;
         public NewLeagueCreation(Form p,int id)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             UserID = id;
             MyParent = p;
             MyParent.Hide();
@@ -38,15 +41,15 @@ namespace DBapplication
                 MessageBox.Show("Please enter League ID");
             }
             else {
-                //int result=//query insert UserID in the League which League id is in textBox1
-                //if (result == 0)
-                //{
-                  //  MessageBox.Show("you can't enter this League");
-                //}
-                //else {
-                  //  MessageBox.Show("you entered the League successfully");
-                //}
-                
+                int result = controllerObj.InsertUserInLeague(UserID, Int32.Parse(textBox1.Text));             //query insert UserID in the League which League id is in textBox1
+                if (result == 0)
+                {
+                  MessageBox.Show("you can't enter this League");
+                }
+                else {
+                  MessageBox.Show("you entered the League successfully");
+                }
+
             }
 
         }
@@ -59,14 +62,14 @@ namespace DBapplication
             }
             else
             {
-                //int result=//query create new League with ID in textBox1, name in textBox2 and Owner in UserID
-                //if (result == 0)
-                //{
-                //  MessageBox.Show("League can't be created");
-                //}
-                //else {
-                //  MessageBox.Show(" League is created successfully");
-                //}
+                int result = controllerObj.InsertNewLeague(UserID, Int32.Parse(textBox1.Text), textBox2.Text);                 //query create new League with ID in textBox1, name in textBox2 and Owner in UserID
+                if (result == 0)
+                {
+                  MessageBox.Show("League can't be created");
+                }
+                else {
+                  MessageBox.Show(" League is created successfully");
+                }
 
             }
         }

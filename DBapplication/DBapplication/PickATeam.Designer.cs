@@ -54,7 +54,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(350, 247);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Unpicked Players";
             // 
@@ -63,7 +63,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(703, 17);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 6;
             this.label6.Text = "My Bank";
             // 
@@ -93,7 +93,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(350, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Picked Players";
             // 
@@ -133,6 +133,7 @@
             this.Name = "PickATeam";
             this.Text = "PickATeam";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PickATeam_FormClosed);
+            this.Load += new System.EventHandler(this.PickATeam_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);

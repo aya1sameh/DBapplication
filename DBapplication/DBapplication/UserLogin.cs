@@ -11,8 +11,8 @@ namespace DBapplication
 {
     public partial class UserLogin : Form
     {
-        Form MyParent;
-        Controller controllerObj;
+        private Form MyParent;
+        private Controller controllerObj;
         public UserLogin(Form p)
         {
             InitializeComponent();

@@ -11,8 +11,8 @@ namespace DBapplication
 {
     public partial class AdminP : Form
     {
-        Form MyParent;
-        Controller controllerObj;
+        private Form MyParent;
+        private Controller controllerObj;
         public AdminP(Form p)
         {
             InitializeComponent();

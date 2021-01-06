@@ -12,9 +12,9 @@ namespace DBapplication
     
     public partial class AdminSignUp : Form
     {
-        Form MyParent;
-        string Role = "";
-        Controller controllerObj;
+        private Form MyParent;
+        private string Role = "";
+        private Controller controllerObj;
         public AdminSignUp(Form p)
         {
             InitializeComponent();

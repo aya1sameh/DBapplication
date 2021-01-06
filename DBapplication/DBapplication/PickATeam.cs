@@ -11,12 +11,14 @@ namespace DBapplication
 {
     public partial class PickATeam : Form
     {
-        int UserID;
-        Form MyParent;
-        int UserBank;
+        private int UserID;
+        private Form MyParent;
+        private int UserBank;
+        Controller controllerObj;
         public PickATeam(Form p, int id,int bank)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             UserID = id;
             UserBank = bank;
@@ -28,6 +30,10 @@ namespace DBapplication
         {
             //query get all un picked players : PlayersTable-UserTeamTable and show in dataGridView1
             //refresh datagrid to show data
+            
+            DataTable dt = controllerObj.SelectAllUserUnpickedTeam(UserID);
+            dataGridView1.DataSource = dt;
+            dataGridView1.Refresh();
         }
 
         private void PickATeam_FormClosed(object sender, FormClosedEventArgs e)
@@ -45,6 +51,14 @@ namespace DBapplication
         {
             //query shows the user Team Players in dataGridView2
             //refresh datagrid to show data
+            //DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+            //dataGridView2.DataSource = dt2;
+            //dataGridView2.Refresh();
+            int rowindex = e.RowIndex;
+            DataGridViewRow Row = dataGridView1.Rows[rowindex];
+            int playerID = Int32.Parse(Row.Cells[0].ToString());
+            int playerPrice= Int32.Parse(Row.Cells[4].ToString());
+
         }
 
         private void button1_Click(object sender, EventArgs e)//Remove selected player
@@ -66,6 +80,17 @@ namespace DBapplication
             //query updates User Bank (Bank-=playerPrice) given UserID
             //UserBank=query get UserBank given UserID;
             textBox1.Text = UserBank.ToString();
+        }
+
+        private void PickATeam_Load(object sender, EventArgs e)
+        {
+            DataTable dt = controllerObj.SelectAllUserUnpickedTeam(UserID);
+            dataGridView1.DataSource = dt;
+            dataGridView1.Refresh();
+            DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+            dataGridView2.DataSource = dt2;
+            dataGridView2.Refresh();
+
         }
     }
 }

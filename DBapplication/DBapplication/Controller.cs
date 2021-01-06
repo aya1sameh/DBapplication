@@ -9,7 +9,7 @@ namespace DBapplication
 {
     public class Controller
     {
-        DBManager dbMan;
+        private DBManager dbMan;
         public Controller()
         {
             dbMan = new DBManager();
@@ -79,44 +79,86 @@ namespace DBapplication
 
         //Clubs control functions
 
-        public int UpdateClubInfo(int club_id, string club_name, int new_points)
+        public int UpdateHomeClubInfo(int club_id, string club_name, int new_points)
         {
 
-            string query = "UPDATE Clubs SET Club_name= '" + club_name + "' , Points= '" + new_points + "' "
+            string query = "UPDATE HomeClub SET Club_name= '" + club_name + "' , Points= '" + new_points + "' "
             + "WHERE ID='" + club_id + "';";
             return dbMan.ExecuteNonQuery(query);
         }
 
-        public int UpdateClubPoints(int club_id, int new_points)
+        public int UpdateHomeClubPoints(int club_id, int new_points)
         {
-            string query = "UPDATE Clubs SET Points= '" + new_points + "' "
+            string query = "UPDATE HomeClub SET Points= '" + new_points + "' "
             + "WHERE ID='" + club_id + "';";
             return dbMan.ExecuteNonQuery(query);
         }
 
-        public DataTable SelectAllClubs()
+        public DataTable SelectAllHomeClubs()
         {
-            string query = "SELECT * FROM Clubs ORDER BY Points  DESC;";
+            string query = "SELECT * FROM HomeClub ORDER BY Points  DESC;";
             return dbMan.ExecuteReader(query);
         }
-        public int InsertClub(int club_id, string club_name)
+        public int InsertHomeClub(int club_id, string club_name)
         {
-            string query = "INSERT INTO Clubs (ID, Club_name)" +
+            string query = "INSERT INTO HomeClub (ID, Club_name)" +
                             "Values ('" + club_id + "','" + club_name + "');";
             return dbMan.ExecuteNonQuery(query);
         }
 
-        public int DeleteClub(int club_id)
+        public int DeleteHomeClub(int club_id)
         {
-            string query = "DELETE FROM Clubs WHERE ID='" + club_id + "';";
+            string query = "DELETE FROM HomeClub WHERE ID='" + club_id + "';";
             return dbMan.ExecuteNonQuery(query);
         }
 
-        public int DeleteAllClubs()
+        public int DeleteAllHomeClubs()
         {
-            string query = "DELETE FROM Clubs ;";
+            string query = "DELETE FROM HomeClub ;";
             return dbMan.ExecuteNonQuery(query);
         }
+        //Away clubs
+
+        public int UpdateAwayClubInfo(int club_id, string club_name, int new_points)
+        {
+
+            string query = "UPDATE AwayClub SET Club_name= '" + club_name + "' , Points= '" + new_points + "' "
+            + "WHERE ID='" + club_id + "';";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int UpdateAwayClubPoints(int club_id, int new_points)
+        {
+            string query = "UPDATE AwayClub SET Points= '" + new_points + "' "
+            + "WHERE ID='" + club_id + "';";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public DataTable SelectAllAwayClubs()
+        {
+            string query = "SELECT * FROM AwayClub ORDER BY Points  DESC;";
+            return dbMan.ExecuteReader(query);
+        }
+        public int InsertAwayClub(int club_id, string club_name)
+        {
+            string query = "INSERT INTO AwayClub (ID, Club_name)" +
+                            "Values ('" + club_id + "','" + club_name + "');";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int DeleteAwayClub(int club_id)
+        {
+            string query = "DELETE FROM AwayClub WHERE ID='" + club_id + "';";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int DeleteAllAwayClubs()
+        {
+            string query = "DELETE FROM AwayClub ;";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+
 
         //Fixtures control functions
 
@@ -163,6 +205,120 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query);
         }
 
+        //USER control functions
+        //textBox2.Text=//Query get user rank given id in UserID
+        //textBox3.Text =//Query get bank rank given id in UserID
+        //textBox4.Text =//Query get Avg score of all users
+        //textBox5.Text =//Query get user score given id in UserID
+        //textBox6.Text =//Query get Max score of all users
+        //textBox7.Text =//Query get user Team Name given id in UserID
+
+         public DataTable  GetUserInfo(int user_id, ref int rank, ref int bank, ref int points, ref int maxpoints, ref int avgpoints)
+        {
+            string query1 = "SELECT AVG(Global_rank) FROM Users GROUP BY ID HAVING ID= '" + user_id +"';";
+            rank = (int)dbMan.ExecuteScalar(query1);
+            
+
+            string query2 = "SELECT AVG(Bank) FROM Users GROUP BY ID HAVING ID= '" + user_id + "';";
+            bank = (int)dbMan.ExecuteScalar(query2);
+
+            string query4 = "SELECT AVG(TotalPoints) FROM Users GROUP BY ID HAVING ID= '" + user_id + "';";
+            points = (int)dbMan.ExecuteScalar(query4);
+
+            string query5 = "SELECT MAX(TotalPoints) FROM Users;";
+            maxpoints = (int)dbMan.ExecuteScalar(query5);
+
+            string query6 = "SELECT AVG(TotalPoints) FROM Users;";
+            avgpoints = (int)dbMan.ExecuteScalar(query6);
+
+            string query3 = "SELECT TeamName FROM Users WHERE ID = '" + user_id + "';";
+            return dbMan.ExecuteReader(query3);
+            
+        }
+
+        //User team 
+        
+        public DataTable SelectAllUserTeam(int user_id)
+        {
+            string query = "SELECT Fname, Lname, Players.Position, Players.Points, Goals, Assists, Fit, HomeClub.Club_name , AwayClub.Club_name   "
+                + "FROM Pick_Team , Players ,Fixtures , HomeClub , AwayClub "
+                + "WHERE PlayerID=Players.ID and Fixtures.Match_ID=Players.Match_ID and Fixtures.Home=HomeClub.ID and Fixtures.Away=AwayClub.ID and UserID=' " + user_id + " ';";
+            // and (P.Club_=F.Away or P.Club_ID=F.Home)
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable SelectAllUserLeagues(int user_id)
+        {
+            string query = "SELECT L_Name, User_rank, Fname "
+                + "FROM Joined, Leagues, Users "
+                + "WHERE Joined.League_ID=Leagues.League_ID and Createdby=ID and UserID=' " + user_id + " ';";
+            
+            return dbMan.ExecuteReader(query);
+        }
+
+        
+
+        public DataTable SelectAllUserChips(int user_id)
+        {
+            string query = "SELECT C_Name, C_Description, Used "
+                + "FROM Uses, Chips "
+                + "WHERE ChipID=ID and UserID=' " + user_id + " ';";
+
+            return dbMan.ExecuteReader(query);
+        }
+
+        public int UpdateUserTeamName(int user_id, string team_name)
+        {
+            string query = "UPDATE Users SET TeamName= '" + team_name + "' "
+            + "WHERE ID='" + user_id + "';";
+            return dbMan.ExecuteNonQuery(query);
+        }
+        
+        //query get all un picked players : PlayersTable-UserTeamTable 
+        public DataTable SelectAllUserUnpickedTeam(int user_id)
+        {
+            //ID first,price after position in both picked,unpicked
+            string query = "SELECT Fname, Lname, Position, Points, Goals, Assists, Fit FROM Players WHERE NOT EXISTS " 
+                + "(SELECT * FROM Pick_Team WHERE ID=PlayerID and UserID ='" + user_id + "');";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable SelectAllUserPickedTeam(int user_id)
+        {
+            string query = "SELECT Fname, Lname, Position, Points, Goals, Assists, Fit FROM Players, Pick_Team "
+                + "WHERE ID=PlayerID and UserID ='" + user_id + "';";
+            return dbMan.ExecuteReader(query);
+        }
+
+        //New League
+        public int InsertUserInLeague(int user_id, int league_id)
+        {
+            string query = "INSERT INTO Joined (League_ID, UserID)" +
+                            "Values ('" + league_id + "','" + user_id + "');";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int InsertNewLeague(int user_id, int league_id, string league_name)
+        {
+            string query = "INSERT INTO Leagues (League_ID, L_Name, Createdby)" +
+                            "Values ('" + league_id + "','" + league_name + "','" + user_id + "');";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int GetPlayerID(string player_fname)
+        {
+            string query = "SELECT AVG(ID) FROM Players GROUP BY ID HAVING Fname= '" + player_fname + "';";
+            return (int)dbMan.ExecuteScalar(query);
+
+        }
+        /*
+        public DataTable SelectAllUserPickedTeam(int user_id)
+        {
+            string query = "SELECT * FROM Players"
+                + "WHERE ID IN ( SELECT PlayerID FROM Pick_Team WHERE UserID ='" + user_id + "';);";
+            return dbMan.ExecuteReader(query);
+        }
+        */
 
         //insert new fixtures: Home club score and away club scores are not needed  "NULL-NULL" /////make it 0-0 for the user to understand
         //insert new club: we only check on id, club name.
