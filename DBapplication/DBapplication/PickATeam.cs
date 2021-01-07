@@ -17,6 +17,8 @@ namespace DBapplication
         private int playerID;
         private int playerPrice;
         Controller controllerObj;
+        private int wildcardUsed;
+        private int tripleplayerUsed;
         public PickATeam(Form p, int id,int bank)
         {
             InitializeComponent();
@@ -26,16 +28,25 @@ namespace DBapplication
             UserBank = bank;
             MyParent.Hide();
             textBox1.Text = UserBank.ToString();
+            //wildcardUsed=//query returns 0 or 1 from the used attribute with name=wildcard given UserID
+            //tripleplayerUsed=//query returns 0 or 1 from the used attribute with name=triplecaptain given UserID
+            if (wildcardUsed==1) {
+                this.button8.Enabled = false;
+            }
+            if (tripleplayerUsed==1)
+            {
+                this.button9.Enabled = false;
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //query get all un picked players : PlayersTable-UserTeamTable and show in dataGridView1
+            /*//query get all un picked players : PlayersTable-UserTeamTable and show in dataGridView1
             //refresh datagrid to show data
             
             DataTable dt = controllerObj.SelectAllUserUnpickedTeam(UserID);
             dataGridView1.DataSource = dt;
-            dataGridView1.Refresh();
+            dataGridView1.Refresh();*/
         }
 
         private void PickATeam_FormClosed(object sender, FormClosedEventArgs e)
@@ -51,11 +62,11 @@ namespace DBapplication
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //query shows the user Team Players in dataGridView2
+            /*//query shows the user Team Players in dataGridView2
             //refresh datagrid to show data
             DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
             dataGridView2.DataSource = dt2;
-            dataGridView2.Refresh();
+            dataGridView2.Refresh();*/
             
 
         }
@@ -119,24 +130,47 @@ namespace DBapplication
                 MessageBox.Show("Please select only one player to Add");
                 return;
             }
-
-            int result1 = controllerObj.AddPlayer(playerID, UserID);
-            int result2 = controllerObj.UpdateBank(UserID, UserBank - playerPrice, ref UserBank);
-            if (result1 == 0)
-                MessageBox.Show("Failed to Add Player");
-            else if (result2 == 0)
-                MessageBox.Show("Failed to Update Bank");
-            else
+            if (wildcardUsed == 2)
             {
-                MessageBox.Show("Player Added & Bank Updated successfully !");
-                textBox1.Text = UserBank.ToString();
-                DataTable dt1 = controllerObj.SelectAllUserUnpickedTeam(UserID);
-                dataGridView1.DataSource = dt1;
-                dataGridView1.Refresh();
-                DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
-                dataGridView2.DataSource = dt2;
-                dataGridView2.Refresh();
+                int result1 = controllerObj.AddPlayer(playerID, UserID);
+                int result2 = controllerObj.UpdateBank(UserID, UserBank - (playerPrice/2), ref UserBank);
+                if (result1 == 0)
+                    MessageBox.Show("Failed to Add Player");
+                else if (result2 == 0)
+                    MessageBox.Show("Failed to Update Bank");
+                else
+                {
+                    MessageBox.Show("Player Added & Bank Updated successfully !");
+                    textBox1.Text = UserBank.ToString();
+                    DataTable dt1 = controllerObj.SelectAllUserUnpickedTeam(UserID);
+                    dataGridView1.DataSource = dt1;
+                    dataGridView1.Refresh();
+                    DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+                    dataGridView2.DataSource = dt2;
+                    dataGridView2.Refresh();
+                }
+                //query update attribute used for wildcard to be = 1 given UserID
             }
+            else {
+                int result1 = controllerObj.AddPlayer(playerID, UserID);
+                int result2 = controllerObj.UpdateBank(UserID, UserBank - playerPrice, ref UserBank);
+                if (result1 == 0)
+                    MessageBox.Show("Failed to Add Player");
+                else if (result2 == 0)
+                    MessageBox.Show("Failed to Update Bank");
+                else
+                {
+                    MessageBox.Show("Player Added & Bank Updated successfully !");
+                    textBox1.Text = UserBank.ToString();
+                    DataTable dt1 = controllerObj.SelectAllUserUnpickedTeam(UserID);
+                    dataGridView1.DataSource = dt1;
+                    dataGridView1.Refresh();
+                    DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+                    dataGridView2.DataSource = dt2;
+                    dataGridView2.Refresh();
+                }
+            }
+            
         }
 
         private void PickATeam_Load(object sender, EventArgs e)
@@ -147,6 +181,52 @@ namespace DBapplication
             DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
             dataGridView2.DataSource = dt2;
             dataGridView2.Refresh();
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)//use triple player
+        {
+            //int PlayerScore=//get row selected to get player score 
+            //query that updates the user score by + 3*PlayerScore given UserID
+            //query update attribute used for triple player to be = 1 given UserID
+        }
+
+        private void button3_Click(object sender, EventArgs e)//show goal keepers
+        {
+            //show all picked goal keepers in datagrid2
+            //show all unpicked goal keepers in datagrid
+            //refresh both datagrids
+        }
+
+        private void button4_Click(object sender, EventArgs e)//show defenders
+        {
+            //show all picked defenders in datagrid2
+            //show all unpicked defenders in datagrid
+            //refresh both datagrids
+        }
+
+        private void button5_Click(object sender, EventArgs e)//show midfielders
+        {
+            //show all picked midfielders in datagrid2
+            //show all unpicked midfielders in datagrid
+            //refresh both datagrids
+        }
+
+        private void button6_Click(object sender, EventArgs e)//show forward
+        {
+            //show all picked forward in datagrid2
+            //show all unpicked forward in datagrid
+            //refresh both datagrids
+        }
+
+
+        private void button8_Click(object sender, EventArgs e)//use wild card
+        {
+            wildcardUsed = 2;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
 
         }
     }

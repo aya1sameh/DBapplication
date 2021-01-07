@@ -52,7 +52,7 @@ namespace DBapplication
                   //  MessageBox.Show("Unable to create user try another id");
                 //}
                 //else {
-                    //go to home page
+                   
                   //  UserHome a = new UserHome(this, Int32.Parse(textBox1.Text));
                    // a.Show();
                 //}
