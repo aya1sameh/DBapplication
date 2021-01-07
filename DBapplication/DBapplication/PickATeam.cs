@@ -14,6 +14,8 @@ namespace DBapplication
         private int UserID;
         private Form MyParent;
         private int UserBank;
+        private int playerID;
+        private int playerPrice;
         Controller controllerObj;
         public PickATeam(Form p, int id,int bank)
         {
@@ -51,13 +53,10 @@ namespace DBapplication
         {
             //query shows the user Team Players in dataGridView2
             //refresh datagrid to show data
-            //DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
-            //dataGridView2.DataSource = dt2;
-            //dataGridView2.Refresh();
-            int rowindex = e.RowIndex;
-            DataGridViewRow Row = dataGridView1.Rows[rowindex];
-            int playerID = Int32.Parse(Row.Cells[0].ToString());
-            int playerPrice= Int32.Parse(Row.Cells[4].ToString());
+            DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+            dataGridView2.DataSource = dt2;
+            dataGridView2.Refresh();
+            
 
         }
 
@@ -68,7 +67,37 @@ namespace DBapplication
             //query deletes the player given its id in playerID and his owner id in UserID
             //query updates User Bank (Bank+=playerPrice) given UserID
             //UserBank=query get UserBank given UserID;
-            textBox1.Text = UserBank.ToString();
+            if (dataGridView2.SelectedRows.Count == 1)
+            {
+                DataGridViewRow Row = this.dataGridView2.SelectedRows[0];
+                playerID = Int32.Parse(Row.Cells[0].Value.ToString());
+                playerPrice = Int32.Parse(Row.Cells[4].Value.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Please select only one player to remove");
+                return;
+            }
+            
+            int result1 = controllerObj.RemovePlayer(playerID, UserID);
+            int result2 = controllerObj.UpdateBank(UserID, UserBank + playerPrice, ref UserBank);
+            if (result1 == 0)
+                MessageBox.Show("Failed to Remove Player");
+            else if (result2 == 0)
+                MessageBox.Show("Failed to Update Bank");
+            else
+            {
+                MessageBox.Show("Player Added & Bank Updated successfully !");
+                textBox1.Text = UserBank.ToString();
+                DataTable dt1 = controllerObj.SelectAllUserUnpickedTeam(UserID);
+                dataGridView1.DataSource = dt1;
+                dataGridView1.Refresh();
+                DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+                dataGridView2.DataSource = dt2;
+                dataGridView2.Refresh();
+            }
+
+            
         }
 
         private void button2_Click(object sender, EventArgs e)// Add selected player
@@ -79,7 +108,35 @@ namespace DBapplication
             //query insert the player given its id in playerID and his owner id in UserID ///check if count(PlayerPosition) of the userPlayersPicked excceed the limited value AND Max limited number of players
             //query updates User Bank (Bank-=playerPrice) given UserID
             //UserBank=query get UserBank given UserID;
-            textBox1.Text = UserBank.ToString();
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                DataGridViewRow Row = this.dataGridView1.SelectedRows[0];
+                playerID = Int32.Parse(Row.Cells[0].Value.ToString());
+                playerPrice = Int32.Parse(Row.Cells[4].Value.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Please select only one player to Add");
+                return;
+            }
+
+            int result1 = controllerObj.AddPlayer(playerID, UserID);
+            int result2 = controllerObj.UpdateBank(UserID, UserBank - playerPrice, ref UserBank);
+            if (result1 == 0)
+                MessageBox.Show("Failed to Add Player");
+            else if (result2 == 0)
+                MessageBox.Show("Failed to Update Bank");
+            else
+            {
+                MessageBox.Show("Player Added & Bank Updated successfully !");
+                textBox1.Text = UserBank.ToString();
+                DataTable dt1 = controllerObj.SelectAllUserUnpickedTeam(UserID);
+                dataGridView1.DataSource = dt1;
+                dataGridView1.Refresh();
+                DataTable dt2 = controllerObj.SelectAllUserPickedTeam(UserID);
+                dataGridView2.DataSource = dt2;
+                dataGridView2.Refresh();
+            }
         }
 
         private void PickATeam_Load(object sender, EventArgs e)

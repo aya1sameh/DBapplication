@@ -114,3 +114,6 @@ C:\Users\hp11\Desktop\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DB
 C:\Users\hp11\Desktop\DBapplication\DBapplication\DBapplication\bin\Debug\DBapplication.exe.config
 C:\Users\hp11\Desktop\DBapplication\DBapplication\DBapplication\bin\Debug\DBapplication.exe
 C:\Users\hp11\Desktop\DBapplication\DBapplication\DBapplication\bin\Debug\DBapplication.pdb
+J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.NewLeagueCreation.resources
+J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.PickATeam.resources
+J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.SignUp.resources

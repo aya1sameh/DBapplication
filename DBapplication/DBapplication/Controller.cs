@@ -274,18 +274,39 @@ namespace DBapplication
             return dbMan.ExecuteNonQuery(query);
         }
         
+        public int RemovePlayer(int player_id, int user_id)
+        {
+            string query = "DELETE FROM Pick_Team WHERE PlayerID = '" + player_id + "' AND UserID = '" + user_id + "';";
+            return dbMan.ExecuteNonQuery(query);
+        }
+        public int AddPlayer(int player_id, int user_id)
+        {
+            string query = "INSERT INTO Pick_Team VALUES ('" + user_id + "' , '" + player_id + "');";
+            return dbMan.ExecuteNonQuery(query);
+        }
+        public int UpdateBank(int user_id, int new_bank,ref int bank)
+        {
+            string query = "UPDATE Users SET Bank = '" + new_bank + "' WHERE ID = '" + user_id + "';";
+            int result = dbMan.ExecuteNonQuery(query);
+            if(result != 0)
+            {
+                string query1 = "SELECT Bank FROM Users WHERE ID = '" + user_id + "';";
+                bank = Int32.Parse(dbMan.ExecuteScalar(query1).ToString());
+            }
+            return dbMan.ExecuteNonQuery(query);
+        }
         //query get all un picked players : PlayersTable-UserTeamTable 
         public DataTable SelectAllUserUnpickedTeam(int user_id)
         {
             //ID first,price after position in both picked,unpicked
-            string query = "SELECT Fname, Lname, Position, Points, Goals, Assists, Fit FROM Players WHERE NOT EXISTS " 
+            string query = "SELECT ID, Fname, Lname, Position, Price, Points, Goals, Assists, Fit FROM Players WHERE NOT EXISTS "
                 + "(SELECT * FROM Pick_Team WHERE ID=PlayerID and UserID ='" + user_id + "');";
             return dbMan.ExecuteReader(query);
         }
 
         public DataTable SelectAllUserPickedTeam(int user_id)
         {
-            string query = "SELECT Fname, Lname, Position, Points, Goals, Assists, Fit FROM Players, Pick_Team "
+            string query = "SELECT ID, Fname, Lname, Position, Price ,Points, Goals, Assists, Fit FROM Players, Pick_Team "
                 + "WHERE ID=PlayerID and UserID ='" + user_id + "';";
             return dbMan.ExecuteReader(query);
         }
