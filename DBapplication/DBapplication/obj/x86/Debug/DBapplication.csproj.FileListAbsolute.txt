@@ -117,3 +117,6 @@ C:\Users\hp11\Desktop\DBapplication\DBapplication\DBapplication\bin\Debug\DBappl
 J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.NewLeagueCreation.resources
 J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.PickATeam.resources
 J:\College\Database\Project\DBapplication\DBapplication\DBapplication\obj\x86\Debug\DBapplication.SignUp.resources
+E:\4\Fall2020\Database\Project\DBapplication\DBapplication\DBapplication\bin\Debug\DBapplication.exe.config
+E:\4\Fall2020\Database\Project\DBapplication\DBapplication\DBapplication\bin\Debug\DBapplication.exe
+E:\4\Fall2020\Database\Project\DBapplication\DBapplication\DBapplication\bin\Debug\DBapplication.pdb

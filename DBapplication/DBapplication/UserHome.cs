@@ -146,7 +146,7 @@ namespace DBapplication
         private void button2_Click(object sender, EventArgs e)//update team
         {
             //new form of players update
-            PickATeam a = new PickATeam(this, UserID, Int32.Parse(textBox3.Text));
+            PickATeam a = new PickATeam(this, UserID, Int32.Parse(textBox3.Text), Int32.Parse(textBox5.Text));
             a.Show();
         }
 
@@ -183,6 +183,26 @@ namespace DBapplication
             dataGridView2.Refresh();
         }
 
-        
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            DataTable dt = controllerObj.SelectAllUserLeagues(UserID);
+            dataGridView1.DataSource = dt;
+            dataGridView1.Refresh();
+        }
+
+        private void dataGridView2_DoubleClick(object sender, EventArgs e)
+        {
+            DataTable dt = controllerObj.SelectAllUserTeam(UserID);
+            dataGridView2.DataSource = dt;
+            dataGridView2.Refresh();
+
+        }
+
+        private void dataGridView5_DoubleClick(object sender, EventArgs e)
+        {
+            DataTable dt5 = controllerObj.SelectAllHomeClubs();
+            dataGridView4.DataSource = dt5;
+            dataGridView4.Refresh();
+        }
     }
 }

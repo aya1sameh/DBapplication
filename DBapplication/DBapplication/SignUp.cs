@@ -11,10 +11,12 @@ namespace DBapplication
 {
     public partial class SignUp : Form
     {
+        private Controller controllerObj;
         private Form MyParent;
         public SignUp(Form p)
         {
             InitializeComponent();
+            controllerObj = new Controller();
             MyParent = p;
             MyParent.Hide();
         }
@@ -46,17 +48,20 @@ namespace DBapplication
                 MessageBox.Show("Please fill all boxes");
             }
             else {
-                //int result=//query insert new user
-                //if (result == 0)
-                //{
-                  //  MessageBox.Show("Unable to create user try another id");
-                //}
-                //else {
-                   
-                  //  UserHome a = new UserHome(this, Int32.Parse(textBox1.Text));
-                   // a.Show();
-                //}
+                
+                int result2 = controllerObj.InsertUser(Int32.Parse(textBox1.Text), textBox2.Text, textBox3.Text, Int32.Parse(textBox4.Text));
+                if (result2 == 0 )
+                {
+                    MessageBox.Show("Unable to create user try another id");
+                }
+                else {
+                    MessageBox.Show("User created successfully !");
+                    int result = controllerObj.InsertChips(Int32.Parse(textBox1.Text));
+                    UserHome a = new UserHome(this, Int32.Parse(textBox1.Text));
+                    a.Show();
+                }
 
+                
 
             }
 

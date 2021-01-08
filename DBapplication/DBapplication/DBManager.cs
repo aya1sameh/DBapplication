@@ -12,7 +12,7 @@ namespace DBapplication
     {
         //TODO: Make Sure to change Connection String to your Database 
 
-        private static string DB_Connection_String = @"Data Source=DESKTOP-NUUNQEB\SQLEXPRESS;Initial Catalog=FPL9;Integrated Security=True";
+        private static string DB_Connection_String = @"Data Source=DESKTOP-42I0F00\SQLEXPRESS;Initial Catalog=FPL11;Integrated Security=True";
         private SqlConnection myConnection;
 
         public DBManager()

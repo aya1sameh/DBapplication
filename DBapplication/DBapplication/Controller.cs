@@ -217,7 +217,6 @@ namespace DBapplication
         {
             string query1 = "SELECT AVG(Global_rank) FROM Users GROUP BY ID HAVING ID= '" + user_id +"';";
             rank = (int)dbMan.ExecuteScalar(query1);
-            
 
             string query2 = "SELECT AVG(Bank) FROM Users GROUP BY ID HAVING ID= '" + user_id + "';";
             bank = (int)dbMan.ExecuteScalar(query2);
@@ -235,9 +234,14 @@ namespace DBapplication
             return dbMan.ExecuteReader(query3);
             
         }
-
+        public int InsertUser(int ID, string Fname, string Lname, int pass)
+        {
+            string query = "INSERT INTO Users ( ID, Fname, Lname, U_Password,Global_rank,TeamName,Bank,TotalPoints ) " +
+                           " Values ('" + ID + "', '" + Fname + "', '" + Lname + "', '" + pass + "',0,'',100,0);";
+            return dbMan.ExecuteNonQuery(query);
+        }
         //User team 
-        
+
         public DataTable SelectAllUserTeam(int user_id)
         {
             string query = "SELECT Fname, Lname, Players.Position, Players.Points, Goals, Assists, Fit, HomeClub.Club_name , AwayClub.Club_name   "
@@ -311,6 +315,75 @@ namespace DBapplication
             return dbMan.ExecuteReader(query);
         }
 
+        //Denfenders
+        public DataTable SelectAllUserUnpickedDef(int user_id)
+        {
+            //ID first,price after position in both picked,unpicked
+            string query = "SELECT ID, Fname, Lname, Position, Price, Points, Goals, Assists, Fit FROM Players WHERE Position='D' and NOT EXISTS "
+                + "(SELECT * FROM Pick_Team WHERE ID=PlayerID and UserID ='" + user_id + "');";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable SelectAllUserPickedDef(int user_id)
+        {
+            string query = "SELECT ID, Fname, Lname, Position, Price ,Points, Goals, Assists, Fit FROM Players, Pick_Team "
+                + "WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='D' ;";
+            return dbMan.ExecuteReader(query);
+        }
+
+        //Midfielders
+        public DataTable SelectAllUserUnpickedMid(int user_id)
+        {
+            //ID first,price after position in both picked,unpicked
+            string query = "SELECT ID, Fname, Lname, Position, Price, Points, Goals, Assists, Fit FROM Players WHERE Position='M' and NOT EXISTS "
+                + "(SELECT * FROM Pick_Team WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='M' );";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable SelectAllUserPickedMid(int user_id)
+        {
+            string query = "SELECT ID, Fname, Lname, Position, Price ,Points, Goals, Assists, Fit FROM Players, Pick_Team "
+                + "WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='M' ;";
+            return dbMan.ExecuteReader(query);
+        }
+
+
+        //Forwards
+
+        public DataTable SelectAllUserUnpickedFwd(int user_id)
+        {
+            //ID first,price after position in both picked,unpicked
+            string query = "SELECT ID, Fname, Lname, Position, Price, Points, Goals, Assists, Fit FROM Players WHERE Position='F' and NOT EXISTS "
+                + "(SELECT * FROM Pick_Team WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='F' );";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable SelectAllUserPickedFwd(int user_id)
+        {
+            string query = "SELECT ID, Fname, Lname, Position, Price ,Points, Goals, Assists, Fit FROM Players, Pick_Team "
+                + "WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='F' ;";
+            return dbMan.ExecuteReader(query);
+        }
+
+
+
+        //Goalkeepers
+
+        public DataTable SelectAllUserUnpickedGK(int user_id)
+        {
+            //ID first,price after position in both picked,unpicked
+            string query = "SELECT ID, Fname, Lname, Position, Price, Points, Goals, Assists, Fit FROM Players WHERE Position='G' and NOT EXISTS "
+                + "(SELECT * FROM Pick_Team WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='G' );";
+            return dbMan.ExecuteReader(query);
+        }
+
+        public DataTable SelectAllUserPickedGK(int user_id)
+        {
+            string query = "SELECT ID, Fname, Lname, Position, Price ,Points, Goals, Assists, Fit FROM Players, Pick_Team "
+                + "WHERE ID=PlayerID and UserID ='" + user_id + "' and Position='G';";
+            return dbMan.ExecuteReader(query);
+        }
+
         //New League
         public int InsertUserInLeague(int user_id, int league_id)
         {
@@ -332,6 +405,68 @@ namespace DBapplication
             return (int)dbMan.ExecuteScalar(query);
 
         }
+
+
+        public DataTable SelectUsersUsedWildcard(int user_id)
+        {
+            string query = "SELECT Used "
+                + "FROM Uses, Chips "
+                + "WHERE ChipID=ID and UserID=' " + user_id + " ' and C_Name= 'Wild Card' ;";
+
+            return dbMan.ExecuteReader(query);
+            
+        }
+        
+        public DataTable SelectUsersUsedTriplecaptain(int user_id)
+        {
+            string query = "SELECT Used "
+                + "FROM Uses, Chips "
+                + "WHERE ChipID=ID and UserID=' " + user_id + " ' and C_Name= 'Triple Captain';";
+
+            return dbMan.ExecuteReader(query);
+
+        }
+        public int InsertChips(int id )
+        {
+            string query = "INSERT INTO Uses" +
+                           " Values ('" + id + "',1,0);";
+            int r1=dbMan.ExecuteNonQuery(query);
+            string query2 = "INSERT INTO Uses" +
+                           " Values ('" + id + "',2,0);";
+            int r2 = dbMan.ExecuteNonQuery(query2);
+            return r1;
+        }
+
+        //query update attribute used for triple player to be = 1 given UserID
+        //query that updates the user score by + 3*PlayerScore given 
+
+       
+        
+        public int UpdateUserScore(int user_id, int total_points)
+        {
+            string query = "UPDATE Users SET TotalPoints= '" + total_points + "' "
+            + "WHERE ID='" + user_id + "';";
+            return dbMan.ExecuteNonQuery(query);
+
+        }
+
+
+        public int UpdateUsedTriplecaptain(int user_id)
+        {
+            string query = "UPDATE Uses SET Used =1 "
+             + "WHERE UserID='" + user_id + "' and ChipID IN( SELECT ID FROM Chips WHERE C_Name='Triple Captain');";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+        public int UpdateUsedWildcard(int user_id)
+        {
+            string query = "UPDATE Uses SET Used =1 "
+             + "WHERE UserID='" + user_id + "' and ChipID IN( SELECT ID FROM Chips WHERE C_Name='Wild Card');";
+            return dbMan.ExecuteNonQuery(query);
+        }
+
+
+
         /*
         public DataTable SelectAllUserPickedTeam(int user_id)
         {
